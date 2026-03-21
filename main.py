@@ -4,8 +4,19 @@ import yfinance as yf
 import time
 from datetime import datetime
 
-ticker = "AAPL"
-stock = yf.Ticker(ticker)
+tickers = ["AAPL", "AMZN", "GOOGL", "MSFT", "TSLA", "META"]
+
+all_data = []
+
+for ticker in tickers:
+
+    stock = yf.Ticker(ticker)
+    expirations = stock.options
+
+    for expiry in expirations:
+
+        option_chain = stock.option_chain(expiry)
+        calls = option_chain.calls
 
 expirations = stock.options
 print("Available expirations:", expirations)
